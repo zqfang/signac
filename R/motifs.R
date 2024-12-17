@@ -227,16 +227,17 @@ RunChromVAR.ChromatinAssay <- function(
     annotations = motif.matrix,
     background_peaks = bg
   )
-  #
-  saveRDS(object = dev, file = "dev.rds")
-  #chromvar.d <- SummarizedExperiment::assays(dev)[[1]]
+  # saveRDS(object = dev, file = "dev.rds")
+  chromvar.d <- SummarizedExperiment::assays(dev)[[1]]
   chromvar.z <- SummarizedExperiment::assays(dev)[[2]]
-  #rownames(x = chromvar.d) <- colnames(x = motif.matrix)
+  rownames(x = chromvar.d) <- colnames(x = motif.matrix)
   rownames(x = chromvar.z) <- colnames(x = motif.matrix)
   if (verbose) {
     message("Constructing chromVAR assay")
+    message("Adding chromVAR deviations to counts layer, and z-scores to data layer")
   }
   obj <- CreateAssayObject(data = chromvar.z)
+  obj@counts <- chromvar.d
   return(obj)
 }
 
