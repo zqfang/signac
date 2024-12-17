@@ -227,12 +227,14 @@ RunChromVAR.ChromatinAssay <- function(
     annotations = motif.matrix,
     background_peaks = bg
   )
+  chromvar.d <- SummarizedExperiment::assays(dev)[[1]]
   chromvar.z <- SummarizedExperiment::assays(dev)[[2]]
+  rownames(x = chromvar.d) <- colnames(x = motif.matrix)
   rownames(x = chromvar.z) <- colnames(x = motif.matrix)
   if (verbose) {
     message("Constructing chromVAR assay")
   }
-  obj <- CreateAssayObject(data = chromvar.z)
+  obj <- CreateAssayObject(counts = chromvar.d, data = chromvar.z)
   return(obj)
 }
 
