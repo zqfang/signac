@@ -239,7 +239,7 @@ RunChromVAR.ChromatinAssay <- function(
     message("Constructing chromVAR assay")
     message("Adding chromVAR deviations, z-scores to counts, data layer")
   }
-  obj <- CreateAssayObject(data = cbind(chromvar.d, chromvar.z))
+  obj <- CreateAssayObject(data = chromvar.z)
   obj <- SetAssayData(object = obj, layer = "counts", new.data = chromvar.d)
   return(obj)
 }
