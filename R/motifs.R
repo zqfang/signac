@@ -227,7 +227,7 @@ RunChromVAR.ChromatinAssay <- function(
     annotations = motif.matrix,
     background_peaks = bg
   )
-  # saveRDS(object = dev, file = "dev.rds")
+  saveRDS(object = dev, file = "chromvar.rds")
   chromvar.d <- SummarizedExperiment::assays(dev)[[1]]
   chromvar.z <- SummarizedExperiment::assays(dev)[[2]]
   # rownames(x = chromvar.d) <- paste0("deviations:", colnames(x = motif.matrix))
