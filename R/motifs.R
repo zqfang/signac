@@ -230,16 +230,16 @@ RunChromVAR.ChromatinAssay <- function(
   saveRDS(object = dev, file = "chromvar.rds")
   chromvar.d <- SummarizedExperiment::assays(dev)[[1]]
   chromvar.z <- SummarizedExperiment::assays(dev)[[2]]
-  # rownames(x = chromvar.d) <- paste0("deviations:", colnames(x = motif.matrix))
-  # rownames(x = chromvar.z) <- paste0("z:", colnames(x = motif.matrix)
-  rownames(x = chromvar.d) <- colnames(x = motif.matrix)
   rownames(x = chromvar.z) <- colnames(x = motif.matrix)
   
   if (verbose) {
     message("Constructing chromVAR assay")
-    message("Adding chromVAR deviations, z-scores to counts, data layer")
+    message("Adding chromVAR deviations -> counts, and z-scores -> data")
   }
   obj <- CreateAssayObject(data = chromvar.z)
+  # sometimes row names have underscores: “Feature names cannot have underscores ('_'), replacing with dashes ('-')”
+  # update row names here to avoid rownames not matching error
+  rownames(chromvar.d) <- rownames(obj)
   obj <- SetAssayData(object = obj, layer = "counts", new.data = chromvar.d)
   return(obj)
 }
